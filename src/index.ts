@@ -1,12 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import { App } from "./app";
+import { AuthRoute } from "./routes/auth.route";
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
+// tambahkan route lainnya disini
+const app = new App([
+  new AuthRoute()
+]);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server Express");
-});
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+app.listen();
