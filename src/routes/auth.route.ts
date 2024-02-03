@@ -13,5 +13,6 @@ export class AuthRoute implements Route {
 
     private initRoutes = () => {
         this.router.post(`${this.path}/register`, this.auth.registerUser);
+        this.router.post(`${this.path}/login`, this.auth.loginUser);
     }
 }
