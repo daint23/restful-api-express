@@ -13,18 +13,19 @@ export class AuthService {
                 email
             },
             select: {
+                id: true,
                 name: true,
                 email: true,
                 password: true,
                 role: true
             }
         });
-        
+
         return user;
 
     }
 
-    public createUser = async(dataUser: User): Promise<User> => {
+    public createUser = async (dataUser: User): Promise<User> => {
         const password = await hashPassword(`${dataUser.password}`);
 
         // menginput data user ke table user
@@ -39,7 +40,7 @@ export class AuthService {
                 name: true
             }
         });
-        
+
         return createUser;
     }
 }
