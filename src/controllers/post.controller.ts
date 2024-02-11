@@ -24,4 +24,20 @@ export class PostController {
             next(error);
         }
     }
+
+    public createPost = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const dataPost: Post = {
+                title: req.body.title,
+                content: req.body.content,
+                published: req.body.published,
+                user_id: req.dataUser.id
+            }
+            const post = await this.post.createPost(dataPost);
+
+            return res.status(HTTP_CREATED).json({ data: post });
+        } catch (error) {
+            next(error)
+        }
+    }
 }

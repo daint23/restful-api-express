@@ -35,4 +35,21 @@ export class PostService {
 
         return details;
     }
+
+    public createPost = async (dataPost: Post): Promise<Post> => {
+        const post: Post = await this.post.create({
+            data: {
+                title: dataPost.title,
+                content: dataPost.content,
+                published: Boolean(dataPost.published),
+                user: {
+                    connect: {
+                        id: +dataPost.user_id
+                    }
+                }
+            }
+        });
+
+        return post;
+    }
 }
