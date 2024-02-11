@@ -19,5 +19,7 @@ export class PostRoute implements Route {
         this.router.get(`${this.path}`, authentication, this.post.getAllPost);
         this.router.get(`${this.path}/:id`, authentication, this.post.getDetails);
         this.router.post(`${this.path}`, authentication, validate(checkSchema(postSchema)), this.post.createPost);
+        this.router.put(`${this.path}/:id`, authentication, validate(checkSchema(postSchema)), this.post.editPost);
+        this.router.delete(`${this.path}/:id`, authentication, this.post.deletePost);
     }
 }

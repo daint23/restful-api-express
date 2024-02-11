@@ -52,4 +52,51 @@ export class PostService {
 
         return post;
     }
+
+    public editPost = async (idPost: number, dataPost: Post): Promise<Post | null> => {
+        const findPost = await this.post.findUnique({
+            where: {
+                id: idPost
+            }
+
+        });
+
+        if (!findPost) {
+            return null;
+        }
+
+
+        const updatePost: Post = await this.post.update({
+            where: {
+                id: idPost
+            },
+            data: {
+                title: dataPost.title ?? findPost.title,
+                content: dataPost.content ?? findPost.content,
+                published: Boolean(dataPost.published) ?? findPost.published
+            }
+        });
+
+        return updatePost;
+    }
+
+    public deletePost = async (idPost: number): Promise<Post | null> => {
+        const findPost = await this.post.findUnique({
+            where: {
+                id: idPost
+            }
+        });
+
+        if (!findPost) {
+            return null;
+        }
+
+        const post = await this.post.delete({
+            where: {
+                id: idPost
+            }
+        });
+
+        return post
+    }
 }
