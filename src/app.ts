@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import "express-async-errors";
+import cookieParser from "cookie-parser";
 import { Route } from "./interfaces/route.interface";
 import { ErrorMiddleware } from "./middlewares/error";
 
@@ -27,6 +28,7 @@ export class App {
     // tambahkan middleware lainnya disini
     private initMiddleware() {
         this.app.use(express.json());
+        this.app.use(cookieParser());
     }
 
     private initRoute(routes: Route[]) {

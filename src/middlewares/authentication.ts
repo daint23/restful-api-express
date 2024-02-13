@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { JsonWebTokenError } from "jsonwebtoken";
 import { HTTP_FORBIDDEN, HTTP_UNAUTHORIZED } from "../utils/http/status.code";
 import { verifyToken } from "../utils/jwt/jwt";
 import { AuthService } from "../services/auth.service";
@@ -40,6 +41,9 @@ export const authentication = async (req: Request, res: Response, next: NextFunc
 
         next();
     } catch (error) {
+        if (error instanceof JsonWebTokenError) {
+            return res.status(HTTP_UNAUTHORIZED).json({ message: error.message });
+        }
         next(error);
     }
 };
